@@ -913,3 +913,84 @@ input[type="checkbox"]:checked + label {
   font-style: normal;
 }
 /* end contact */
+
+/* start blog */
+.blog {
+  background-color: #5c5b5b32;
+  max-width: 800px;
+  padding: 0;
+  margin: 100px auto;
+  padding: 40px 30px;
+  border-radius: 7px;
+}
+
+.blog .text-box {
+  padding: 10px 0;
+}
+
+.blog .text-box h1 {
+  color: #fff;
+  font-size: 40px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.blog .text-box h3 {
+  color: #fff;
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.blog .text-box h3::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 30px;
+  height: 4px;
+  background-color: var(--main-color);
+}
+
+.blog .text-box h4 {
+  text-transform: uppercase;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.blog .text-box h6 {
+  color: var(--text-color);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.blog .text-box h6 a {
+  color: var(--main-color);
+}
+
+.blog .text-box span {
+  color: var(--main-color);
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.blog .text-box p {
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.blog .image {
+  text-align: center;
+  margin: auto;
+}
+
+.blog img {
+  max-width: 100%;
+}
+
+/* end blog */
