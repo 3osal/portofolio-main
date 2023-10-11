@@ -2,6 +2,13 @@
 let navBar = document.querySelector(".nav-bar")
 let btnUp = document.querySelector(".up");
 let scrollHide = document.querySelectorAll('.scroll-hide');
+let btnMessage = document.querySelector('.message-user')
+let formContact = document.querySelector('.user-me')
+let formInput = document.querySelectorAll('.user-me input');
+let formBtn = document.querySelectorAll('.user-me .btn');
+let formClose = document.querySelectorAll('.user-me .close')
+
+
 
 window.onscroll = function () {
     // btn up show
@@ -30,6 +37,16 @@ btnUp.onclick = function () {
     })
 }
 
+//show btn message after 5s
+setInterval(() => {
+    btnMessage.style.display = 'block';
+}, 5000)
+
+btnMessage.onclick = (e) => {
+    formContact.classList.toggle('show-form');
+}
+
+
 // window.addEventListener('scroll', () => {
 // navBar.classList.toggle('sticky', window.scrollY > 10)
 // } )
@@ -40,37 +57,78 @@ document.querySelector('.toggle-setting .fa-gear').onclick = function () {
 }
 
 
-// Add color backGround in local storge
-let mainColors = localStorage.getItem('color-option');
-let colorParagraph = localStorage.getItem('color-pargraph')
 
-if (mainColors !== "null") {
-    document.documentElement.style.setProperty('--backgroundColor', localStorage.getItem)
-}
-if (colorParagraph !== "null") {
-    document.documentElement.style.setProperty('--paragraph-color', localStorage.getItem)
-}
+// switch color
+let colorsLi = document.querySelectorAll('.color-list li')
 
-//Change color websit
-const colorList = document.querySelectorAll('.color-list span');
+colorsLi.forEach(li => {
+    li.addEventListener('click', (e) => {
+        //set color on root
+        document.documentElement.style.setProperty('--main-color', e.target.dataset.color);
 
-colorList.forEach(span => {
-    span.addEventListener('click', (e) => {
+        e.target.parentElement.querySelectorAll('.active').forEach(Element => {
+            Element.classList.remove('active')
+        })
 
-        document.documentElement.style.setProperty('--backgroundColor', e.target.dataset.color)
-        span.classList.toggle('active');
+        e.target.classList.add('active');
 
-        //local storge
-        localStorage.setItem('color-option', e.target.dataset.color)
+        //set color on local storge
+        localStorage.setItem('color_option', e.target.dataset.color)
 
-        if (e.target.dataset.color == '#fff') {
-            document.documentElement.style.setProperty('--paragraph-color', "#000")
-            localStorage.setItem('color-pargraph', document.documentElement.style.setProperty('--paragraph-color', "#000"))
-        } else {
-            document.documentElement.style.setProperty('--paragraph-color', "#fff")
-        }
     })
 })
 
+// local storge
+let mainColor = localStorage.getItem('color_option');
+
+//switch text color
+if (mainColor !== null) {
+    document.documentElement.style.setProperty('--main-color', localStorage.getItem('color_option'))
+    document.querySelectorAll('.color-list li').forEach(element => {
+        element.classList.remove('active')
+        if (element.dataset.color === mainColor) {
+            element.classList.add('active');
+        }
+    })
+}
 
 
+// Dark  and light mood
+let btnChangeMode = document.querySelector('.light');
+let iconMode = document.querySelector('#icon-mode')
+let btnText = document.querySelector('#text-mode');
+
+//local storge
+let mainMode = localStorage.getItem('color-mode');
+
+
+if (typeof(Storage) !== "undefined") {
+    btnChangeMode.onclick = function () {
+        document.body.classList.toggle('light-theme');
+        if (document.body.classList.contains('light-theme')) {
+            iconMode.src = 'image/light-mode.png';
+            btnText.innerHTML = 'light';
+            // حفظ حالة الوضع في local storage
+            localStorage.setItem('theme', 'light');
+        } else {
+            iconMode.src = 'image/dark-mode.png';
+            btnText.innerHTML = 'dark';
+            // حفظ حالة الوضع في local storage
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+
+    var savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        iconMode.src = 'image/light-mode.png';
+        btnText.innerHTML = 'light';
+    } else {
+        document.body.classList.remove('light-theme');
+        iconMode.src = 'image/dark-mode.png';
+        btnText.innerHTML = 'dark';
+    }
+} else {
+    console.log("Local storage is not supported in this browser.");
+}
